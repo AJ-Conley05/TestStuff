@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Renderer.hpp" />
+    <ClInclude Include="SDL2_Common.h" />
+    <ClInclude Include="Window.hpp" />
+    <ClInclude Include="Timer.hpp" />
+    <ClInclude Include="InputManager.hpp" />
+  </ItemGroup>
+</Project>
