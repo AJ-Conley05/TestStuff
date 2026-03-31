@@ -158,7 +158,7 @@ void Game::createBackground()
     std::shared_ptr<Texture> backgroundTexture = std::shared_ptr<Texture>(new Texture());
     
     // This mess loads a texture .. make this better. 
-    SDL_Surface* temp = IMG_Load("assets/images/background.png");
+    SDL_Surface* temp = IMG_Load("assets/images/Level_one_bg_part_one.png");
 
     backgroundTexture->setTexture(SDL_CreateTextureFromSurface(renderer->getRenderer(), temp));
 
@@ -189,7 +189,7 @@ void Game::createBackground()
     float bgScaleX = Window::WINDOW_WIDTH/(float)source.w;
     float bgScaleY = Window::WINDOW_HEIGHT/(float)source.h;
 
-    backgroundTransform->setScale(std::shared_ptr<Vector3f>(new Vector3f(bgScaleX,bgScaleY,0.0f))); 
+    backgroundTransform->setScale(std::shared_ptr<Vector3f>(new Vector3f(1.0f,bgScaleY,0.0f))); 
 
     background->setTransform(backgroundTransform);
 }
@@ -206,7 +206,7 @@ void Game::createPlayer()
     std::shared_ptr<Texture> playerTexture = std::shared_ptr<Texture>(new Texture());
     
     // This mess loads a texture .. make this better. 
-    SDL_Surface* temp = IMG_Load("assets/images/playerShip.png");
+    SDL_Surface* temp = IMG_Load("assets/images/claude_test.png");
 
     playerTexture->setTexture(SDL_CreateTextureFromSurface(renderer->getRenderer(), temp));
 
@@ -234,7 +234,7 @@ void Game::createPlayer()
     playerTransform->setAngle(0.0f);
     playerTransform->setPosition(std::shared_ptr<Vector3f>(new Vector3f(100.0f,100.0f,0.0f)));  
 
-    playerTransform->setScale(std::shared_ptr<Vector3f>(new Vector3f(1.0f,1.0f,0.0f))); 
+    playerTransform->setScale(std::shared_ptr<Vector3f>(new Vector3f(0.25f,0.25f,0.0f))); 
 
     player->setTransform(playerTransform);
 
