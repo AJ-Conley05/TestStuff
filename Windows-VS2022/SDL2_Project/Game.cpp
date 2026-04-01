@@ -30,7 +30,7 @@ Game::Game()
     renderEngine = nullptr;
     inputManager = nullptr;
 
-    background = nullptr;
+    L1background1 = nullptr;
     player = nullptr;
 }
 
@@ -42,17 +42,14 @@ Game::~Game()
     renderer.reset();
     renderer = nullptr;
 
-    background.reset();
-    background = nullptr;
-
     renderEngine.reset();
     renderEngine = nullptr;
 
     physicsEngine.reset();
     physicsEngine = nullptr;
 
-    background.reset();
-    background = nullptr;
+    L1background1.reset();
+    L1background1 = nullptr;
 
     player.reset();
     player = nullptr;
@@ -83,7 +80,7 @@ void Game::init()
     physicsEngine = std::shared_ptr<PhysicsEngine>(new PhysicsEngine());
     physicsEngine->init(MAX_GAME_OBJECTS);
 
-    createBackground();
+    createLevelBackgrounds();
     createPlayer();
 }
 
@@ -145,67 +142,23 @@ void Game::update(float deltaTime)
 
    // Update game objects?
    player->update();
-   background->update();
+   L1background1->update();
+   L1background2->update();
+   
+
+   //background loop when goes off screen.
+
+   if (L1background1->getTransform()->getPosition()->getX() < -1600.0f)
+   {
+       L1background1->getTransform()->setPosition(std::shared_ptr<Vector3f>(new Vector3f(1600.0f, 0.0f, 0.0f)));
+   }
+
+   if (L1background2->getTransform()->getPosition()->getX() < -1600.0f)
+   {
+       L1background2->getTransform()->setPosition(std::shared_ptr<Vector3f>(new Vector3f(1600.0f, 0.0f, 0.0f)));
+   }
+
 }
-
-void Game::createBackground()
-{
-    background = std::shared_ptr<Background>(new Background());
-
-    // Sprite
-    std::shared_ptr<Sprite> backgroundSprite = std::shared_ptr<Sprite>(new Sprite());
-
-    // Texture
-    std::shared_ptr<Texture> backgroundTexture = std::shared_ptr<Texture>(new Texture());
-    
-    // This mess loads a texture .. make this better. 
-    SDL_Surface* temp = IMG_Load("assets/images/Level_one_bg_part_one.png");
-
-    backgroundTexture->setTexture(SDL_CreateTextureFromSurface(renderer->getRenderer(), temp));
-
-    SDL_FreeSurface(temp);
-    temp = nullptr;
-
-    SDL_Rect source;
-    source.x = 0;
-    source.y = 0;
-    
-    SDL_QueryTexture(backgroundTexture->getTexture(), NULL, NULL, &source.w, &source.h);
-    backgroundTexture->setSourceRectangle(source);
-
-    backgroundSprite->setTexture(backgroundTexture);
-
-    // Setup two way relationship
-    backgroundSprite->setGameObject(background);
-    background->setSprite(backgroundSprite);
-
-    // Add to engine
-    renderEngine->addSprite(backgroundSprite);
-
-    // Transform
-    std::shared_ptr<Transform> backgroundTransform = std::shared_ptr<Transform>(new Transform());
-    backgroundTransform->setAngle(0.0f);
-    backgroundTransform->setPosition(std::shared_ptr<Vector3f>(new Vector3f(0.0f,0.0f,0.0f)));  
-    
-    float bgScaleX = Window::WINDOW_WIDTH/(float)source.w;
-    float bgScaleY = Window::WINDOW_HEIGHT/(float)source.h;
-
-    backgroundTransform->setScale(std::shared_ptr<Vector3f>(new Vector3f(1.0f,bgScaleY,0.0f))); 
-
-    background->setTransform(backgroundTransform);
-
-    // Physics
-    std::shared_ptr<PhysicsComponent> backgroundPhysics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent());
-    backgroundPhysics->setVelocity(std::shared_ptr<Vector3f>(new Vector3f(1.0f, 1.0f, 0.0f)));
-
-    // setup two way relationship
-    backgroundPhysics->setGameObject(background);
-    background->setPhysicsComponent(backgroundPhysics);
-
-    // Add to Engine
-    physicsEngine->addPhysicsComponent(backgroundPhysics);
-}
-
 
 void Game::createPlayer()
 {
@@ -260,4 +213,126 @@ void Game::createPlayer()
 
     // Add to Engine
     physicsEngine->addPhysicsComponent(physics);
+}
+
+void Game::createLevelBackgrounds()
+{
+	createL1Background1();
+	createL1Background2();
+}
+
+void Game::createL1Background1()
+{
+    L1background1 = std::shared_ptr<Background>(new Background());
+
+    // Sprite
+    std::shared_ptr<Sprite> backgroundSprite = std::shared_ptr<Sprite>(new Sprite());
+
+    // Texture
+    std::shared_ptr<Texture> backgroundTexture = std::shared_ptr<Texture>(new Texture());
+    
+    // This mess loads a texture .. make this better. 
+    SDL_Surface* temp = IMG_Load("assets/images/Level_one_bg_part_one.png");
+
+    backgroundTexture->setTexture(SDL_CreateTextureFromSurface(renderer->getRenderer(), temp));
+
+    SDL_FreeSurface(temp);
+    temp = nullptr;
+
+    SDL_Rect source;
+    source.x = 0;
+    source.y = 0;
+    
+    SDL_QueryTexture(backgroundTexture->getTexture(), NULL, NULL, &source.w, &source.h);
+    backgroundTexture->setSourceRectangle(source);
+
+    backgroundSprite->setTexture(backgroundTexture);
+
+    // Setup two way relationship
+    backgroundSprite->setGameObject(L1background1);
+    L1background1->setSprite(backgroundSprite);
+
+    // Add to engine
+    renderEngine->addSprite(backgroundSprite);
+
+    // Transform
+    std::shared_ptr<Transform> backgroundTransform = std::shared_ptr<Transform>(new Transform());
+    backgroundTransform->setAngle(0.0f);
+    backgroundTransform->setPosition(std::shared_ptr<Vector3f>(new Vector3f(0.0f,0.0f,0.0f)));  
+    
+    float bgScaleX = Window::WINDOW_WIDTH/(float)source.w;
+    float bgScaleY = Window::WINDOW_HEIGHT/(float)source.h;
+
+    backgroundTransform->setScale(std::shared_ptr<Vector3f>(new Vector3f(1.0f,bgScaleY,0.0f))); 
+
+    L1background1->setTransform(backgroundTransform);
+
+    // Physics
+    std::shared_ptr<PhysicsComponent> backgroundPhysics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent());
+    backgroundPhysics->setVelocity(std::shared_ptr<Vector3f>(new Vector3f(1.0f, 1.0f, 0.0f)));
+
+    // setup two way relationship
+    backgroundPhysics->setGameObject(L1background1);
+    L1background1->setPhysicsComponent(backgroundPhysics);
+
+    // Add to Engine
+    physicsEngine->addPhysicsComponent(backgroundPhysics);
+}
+
+void Game::createL1Background2()
+{
+    L1background2 = std::shared_ptr<Background>(new Background());
+
+    // Sprite
+    std::shared_ptr<Sprite> backgroundSprite = std::shared_ptr<Sprite>(new Sprite());
+
+    // Texture
+    std::shared_ptr<Texture> backgroundTexture = std::shared_ptr<Texture>(new Texture());
+
+    // This mess loads a texture .. make this better. 
+    SDL_Surface* temp = IMG_Load("assets/images/Level_one_bg_part_two.PNG");
+
+    backgroundTexture->setTexture(SDL_CreateTextureFromSurface(renderer->getRenderer(), temp));
+
+    SDL_FreeSurface(temp);
+    temp = nullptr;
+
+    SDL_Rect source;
+    source.x = 0;
+    source.y = 0;
+
+    SDL_QueryTexture(backgroundTexture->getTexture(), NULL, NULL, &source.w, &source.h);
+    backgroundTexture->setSourceRectangle(source);
+
+    backgroundSprite->setTexture(backgroundTexture);
+
+    // Setup two way relationship
+    backgroundSprite->setGameObject(L1background2);
+    L1background2->setSprite(backgroundSprite);
+
+    // Add to engine
+    renderEngine->addSprite(backgroundSprite);
+
+    // Transform
+    std::shared_ptr<Transform> backgroundTransform = std::shared_ptr<Transform>(new Transform());
+    backgroundTransform->setAngle(0.0f);
+    backgroundTransform->setPosition(std::shared_ptr<Vector3f>(new Vector3f(1600.0f, 0.0f, 0.0f)));
+
+    float bgScaleX = Window::WINDOW_WIDTH / (float)source.w;
+    float bgScaleY = Window::WINDOW_HEIGHT / (float)source.h;
+
+    backgroundTransform->setScale(std::shared_ptr<Vector3f>(new Vector3f(1.0f, bgScaleY, 0.0f)));
+
+    L1background2->setTransform(backgroundTransform);
+
+    // Physics
+    std::shared_ptr<PhysicsComponent> backgroundPhysics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent());
+    backgroundPhysics->setVelocity(std::shared_ptr<Vector3f>(new Vector3f(1.0f, 1.0f, 0.0f)));
+
+    // setup two way relationship
+    backgroundPhysics->setGameObject(L1background2);
+    L1background2->setPhysicsComponent(backgroundPhysics);
+
+    // Add to Engine
+    physicsEngine->addPhysicsComponent(backgroundPhysics);
 }

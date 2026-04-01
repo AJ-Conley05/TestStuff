@@ -33,8 +33,9 @@ protected:
     std::shared_ptr<RenderEngine> renderEngine;
     std::shared_ptr<PhysicsEngine> physicsEngine;
 
-    // Background
-    std::shared_ptr<Background> background;
+    // Backgrounds
+    std::shared_ptr<Background> L1background1;
+    std::shared_ptr<Background> L1background2;
 
     //
     std::shared_ptr<Player> player;
@@ -46,8 +47,11 @@ protected:
     void draw();
     void update(float deltaTime);
 
+    void createLevelBackgrounds();
+
     // Temporary
-    void createBackground();
+    void createL1Background1();
+    void createL1Background2();
     void createPlayer();
 };
 
