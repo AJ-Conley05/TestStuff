@@ -7,7 +7,7 @@
 
 Background::Background() : GameObject()
 {
-	speed = 100.0f;
+	speed = 25.0f;
 }
 
 Background::~Background()
@@ -16,8 +16,8 @@ Background::~Background()
 
 void Background::update()
 {
-    float horizontal = InputManager::instance()->getHorizontalInput();
-    float vertical = InputManager::instance()->getVerticalInput();
+    float horizontal = -1.0f;
+    float vertical = 0.0f;
 
     // std::cout << "Horizontal:" << horizontal << std::endl;
     // std::cout << "Vertical:" << vertical << std::endl;
