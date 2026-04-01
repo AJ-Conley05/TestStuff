@@ -9,8 +9,13 @@ public:
     Background();
     ~Background();
 
-private:
+	void update();
 
+	void setSpeed(float speed);
+	float getSpeed();
+
+private:
+    float speed;
 };
 
 #endif

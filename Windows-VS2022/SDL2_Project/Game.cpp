@@ -145,6 +145,7 @@ void Game::update(float deltaTime)
 
    // Update game objects?
    player->update();
+   background->update();
 }
 
 void Game::createBackground()
@@ -192,6 +193,17 @@ void Game::createBackground()
     backgroundTransform->setScale(std::shared_ptr<Vector3f>(new Vector3f(1.0f,bgScaleY,0.0f))); 
 
     background->setTransform(backgroundTransform);
+
+    // Physics
+    std::shared_ptr<PhysicsComponent> backgroundPhysics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent());
+    backgroundPhysics->setVelocity(std::shared_ptr<Vector3f>(new Vector3f(1.0f, 1.0f, 0.0f)));
+
+    // setup two way relationship
+    backgroundPhysics->setGameObject(background);
+    background->setPhysicsComponent(backgroundPhysics);
+
+    // Add to Engine
+    physicsEngine->addPhysicsComponent(backgroundPhysics);
 }
 
 
