@@ -1,9 +1,6 @@
 #include "Background.hpp"
-#include "InputManager.hpp"
 #include "PhysicsComponent.hpp"
 #include "Vector3f.hpp"
-
-#include <iostream>
 
 Background::Background() : GameObject()
 {

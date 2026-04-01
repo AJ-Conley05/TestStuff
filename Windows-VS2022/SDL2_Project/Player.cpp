@@ -7,7 +7,7 @@
 
 Player::Player() : GameObject()
 {
-    speed = 500.0f;
+    speed = 250.0f;
 }
 
 Player::~Player()

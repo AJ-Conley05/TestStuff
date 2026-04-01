@@ -25,11 +25,11 @@ bool InputManager::isWindowClosedEvent()
 float InputManager::getHorizontalInput()
 {
     if (keyStates[SDL_SCANCODE_D])
-        return 0.5f;
+        return 1.0f;
     else
     {
         if (keyStates[SDL_SCANCODE_A])
-            return -0.5f;
+            return -1.0f;
         else
             return 0.0f;
     }
@@ -38,11 +38,11 @@ float InputManager::getHorizontalInput()
 float InputManager::getVerticalInput()
 {
     if (keyStates[SDL_SCANCODE_W])
-        return -0.5f;
+        return -1.0f;
     else
     {
         if (keyStates[SDL_SCANCODE_S])
-            return 0.5f;
+            return 1.0f;
         else
             return 0.0f;
     }

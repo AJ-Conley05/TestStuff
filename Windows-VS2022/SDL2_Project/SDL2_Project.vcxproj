@@ -139,6 +139,7 @@ xcopy /y /d /I /e "$(ProjectDir)assets\*.*" "$(OutDir)assets"
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Foreground.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -154,6 +155,7 @@ xcopy /y /d /I /e "$(ProjectDir)assets\*.*" "$(OutDir)assets"
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Foreground.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="Renderer.hpp" />

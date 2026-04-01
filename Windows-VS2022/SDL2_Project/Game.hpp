@@ -11,6 +11,7 @@ class Timer;
 class InputManager;
 class RenderEngine;
 class Background;
+class Foreground;
 class Player;
 
 class Game {
@@ -37,6 +38,10 @@ protected:
     std::shared_ptr<Background> L1background1;
     std::shared_ptr<Background> L1background2;
 
+    // Foregrounds
+	std::shared_ptr<Foreground> L1foreground1;
+	std::shared_ptr<Foreground> L1foreground2;
+
     //
     std::shared_ptr<Player> player;
 
@@ -48,10 +53,14 @@ protected:
     void update(float deltaTime);
 
     void createLevelBackgrounds();
+	void createLevelForegrounds();
 
     // Temporary
     void createL1Background1();
     void createL1Background2();
+	void createL1Foreground1();
+	void createL1Foreground2();
+
     void createPlayer();
 };
 
